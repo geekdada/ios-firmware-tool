@@ -152,5 +152,12 @@ button,
 footer {
   margin-top: 60px;
   text-align: center;
+}
+footer p {
+  margin-bottom: 0rem;
   font-size: 0.8em;
+}
+footer .sponsor {
+  font-size: 1rem;
+  margin-bottom: 1.5rem;
 }
