@@ -1,41 +1,71 @@
-// Karma configuration
-// http://karma-runner.github.io/0.10/config/configuration-file.html
+'use strict';
 
-module.exports = function(config) {
+var path = require('path');
+
+module.exports = function (config) {
   config.set({
-    // base path, that will be used to resolve files and exclude
     basePath: '',
-
-    // testing framework to use (jasmine/mocha/qunit/...)
     frameworks: ['jasmine'],
-
-    // list of files / patterns to load in the browser
     files: [
-      'app/bower_components/angular/angular.js',
-      'app/bower_components/angular-mocks/angular-mocks.js',
-      'app/bower_components/angular-resource/angular-resource.js',
-      'app/bower_components/angular-route/angular-route.js',
-      'app/scripts/*.js',
-      'app/scripts/**/*.js',
-      'test/mock/**/*.js',
-      'test/spec/**/*.js'
+      'test/helpers/**/*.js',
+      'test/spec/components/**/*.js',
+      'test/spec/stores/**/*.js',
+      'test/spec/actions/**/*.js'
     ],
-
-    // list of files / patterns to exclude
+    preprocessors: {
+      'test/spec/components/**/*.js': ['webpack'],
+      'test/spec/components/**/*.jsx': ['webpack'],
+      'test/spec/stores/**/*.js': ['webpack'],
+      'test/spec/actions/**/*.js': ['webpack']
+    },
+    webpack: {
+      cache: true,
+      module: {
+        loaders: [{
+          test: /\.gif/,
+          loader: 'url-loader?limit=10000&mimetype=image/gif'
+        }, {
+          test: /\.jpg/,
+          loader: 'url-loader?limit=10000&mimetype=image/jpg'
+        }, {
+          test: /\.png/,
+          loader: 'url-loader?limit=10000&mimetype=image/png'
+        }, {
+          test: /\.(js|jsx)$/,
+          loader: 'babel-loader'
+        }, {
+          test: /\.scss/,
+          loader: 'style-loader!css-loader!sass-loader?outputStyle=expanded'
+        }, {
+          test: /\.css$/,
+          loader: 'style-loader!css-loader'
+        }, {
+          test: /\.woff/,
+          loader: 'url-loader?limit=10000&mimetype=application/font-woff'
+        }, {
+          test: /\.woff2/,
+          loader: 'url-loader?limit=10000&mimetype=application/font-woff2'
+        }]
+      },
+      resolve: {
+        alias: {
+          'styles': path.join(process.cwd(), './src/styles/'),
+          'components': path.join(process.cwd(), './src/components/'),
+          'stores': '../../../src/stores/',
+          'actions': '../../../src/actions/'
+        }
+      }
+    },
+    webpackServer: {
+      stats: {
+        colors: true
+      }
+    },
     exclude: [],
-
-    // web server port
     port: 8080,
-
-    // level of logging
-    // possible values: LOG_DISABLE || LOG_ERROR || LOG_WARN || LOG_INFO || LOG_DEBUG
     logLevel: config.LOG_INFO,
-
-
-    // enable / disable watching file and executing tests whenever any file changes
+    colors: true,
     autoWatch: false,
-
-
     // Start these browsers, currently available:
     // - Chrome
     // - ChromeCanary
@@ -44,11 +74,9 @@ module.exports = function(config) {
     // - Safari (only Mac)
     // - PhantomJS
     // - IE (only Windows)
-    browsers: ['Chrome'],
-
-
-    // Continuous Integration mode
-    // if true, it capture browsers, run tests and exit
-    singleRun: false
+    browsers: ['PhantomJS'],
+    reporters: ['progress'],
+    captureTimeout: 60000,
+    singleRun: true
   });
 };

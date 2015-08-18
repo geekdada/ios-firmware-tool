@@ -1,0 +1,97 @@
+/* Stiziles */
+
+html, body {
+  height: 100%;
+  background: #222222;
+}
+
+/* main */
+
+#content {
+  width: 100%;
+  height: 100%;
+}
+
+.main {
+  width: 100%;
+  height: 100%;
+  background: #222222;
+  color: #fff;
+}
+
+.copyright {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding: 0 1rem 2rem;
+  color: #fff;
+  p {
+    font-size: 1rem;
+    margin: 0;
+  }
+}
+
+.panel {
+  padding: 3rem;
+  height: 100%;
+
+  .section {
+    margin-bottom: 3rem;
+  }
+
+  .form__row {
+    margin-bottom: 2rem;
+  }
+}
+
+.FirmwareInfo {
+  .info__title {
+
+  }
+
+  .info__list {
+    padding: 0;
+    margin: 0;
+    li {
+      list-style: none;
+      margin-bottom: 0.9rem;
+    }
+  }
+
+  .info__sign {
+    display: inline-block;
+    padding: 1.5rem 2rem 0.5rem;
+    margin: 2.7rem 0;
+    &.-signed-true {
+      background-color: RGBA(94, 185, 94, 0.5);
+    }
+    &.-signed-false {
+      background-color: rgba(246, 53, 53, 0.5);
+    }
+  }
+}
+
+/* transitions */
+
+.fade-enter {
+  opacity: 0.01;
+  transition: opacity .5s ease-in;
+}
+
+.fade-enter.fade-enter-active {
+  opacity: 1;
+}
+
+.fade-leave {
+  opacity: 1;
+  transition: opacity .5s ease-in;
+}
+
+.fade-leave.fade-leave-active {
+  opacity: 0.01;
+}
+
+.am-selected {
+  color: #222;
+}
