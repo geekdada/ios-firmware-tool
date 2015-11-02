@@ -1,9 +1,9 @@
 'use strict';
 
-var React = require('react/addons'),
-    classNames = require('classNames'),
-    AMR = require('amazeui-react'),
-    {Button, Icon} = AMR;
+var React = require('react');
+var classNames = require('classNames');
+var AMR = require('amazeui-react');
+var {Button, Icon} = AMR;
 
 var SignBox = React.createClass({
   render: function() {

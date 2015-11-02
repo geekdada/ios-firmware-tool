@@ -20,7 +20,7 @@ module.exports = {
   devtool: false,
   entry: [
       'webpack/hot/only-dev-server',
-      './src/components/main.js'
+      './src/scripts/components/main.js'
   ],
 
   stats: {
@@ -31,11 +31,12 @@ module.exports = {
   resolve: {
     extensions: ['', '.js', '.jsx'],
     alias: {
+      'bower_components': __dirname + '/bower_components/',
       'styles': __dirname + '/src/styles',
-      'mixins': __dirname + '/src/mixins',
-      'components': __dirname + '/src/components/',
-      'stores': __dirname + '/src/stores/',
-      'actions': __dirname + '/src/actions/'
+      'scripts': __dirname + '/src/scripts/',
+      'components': __dirname + '/src/scripts/components/',
+      'stores': __dirname + '/src/scripts/stores/',
+      'actions': __dirname + '/src/scripts/actions/'
     }
   },
   module: {

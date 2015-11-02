@@ -1,17 +1,18 @@
 'use strict';
 
-var EventEmitter = require('events').EventEmitter,
-    _ = require('lodash'),
+var EventEmitter = require('events').EventEmitter;
+var _ = require('lodash');
 
-    AppDispatcher = require('../dispatcher/AppDispatcher'),
-    AppConstants = require('../constants/AppConstants'),
+var AppDispatcher = require('../dispatcher/AppDispatcher');
+var AppConstants = require('../constants/AppConstants');
 
-    DeviceStore = require('./DeviceStore'),
+var DeviceStore = require('./DeviceStore');
 
-    ActionTypes = AppConstants.ActionTypes,
-    CHANGE_EVENT = 'change';
+var ActionTypes = AppConstants.ActionTypes;
+var CHANGE_EVENT = 'change';
 
 var _firmwares = {};
+var _jailbreakFirmwares = {};
 
 var FirmwareStore = _.extend({}, EventEmitter.prototype, {
 
@@ -27,9 +28,9 @@ var FirmwareStore = _.extend({}, EventEmitter.prototype, {
     this.removeListener(CHANGE_EVENT, callback);
   },
 
-  getFirmwares: function() {
-    return _firmwares;
-  }
+  getFirmwares: () => _firmwares,
+
+  getJailbreakFirmwares: () => _jailbreakFirmwares
 
 });
 
@@ -41,10 +42,14 @@ function eraseFirmwareData() {
   _firmwares = {};
 }
 
+function loadJailbreakFirmwareData(data) {
+  _jailbreakFirmwares = data;
+}
+
 FirmwareStore.dispatchToken = AppDispatcher.register(function(payload) {
   let action = payload.action;
 
-  switch(action.actionType) {
+  switch (action.actionType) {
     case ActionTypes.FETCH_FIRMWARES:
       AppDispatcher.waitFor([DeviceStore.dispatchToken]);
       loadFirmwareData(action.data);
@@ -54,6 +59,10 @@ FirmwareStore.dispatchToken = AppDispatcher.register(function(payload) {
     case ActionTypes.ERASE_FIRMWARES:
       eraseFirmwareData();
       FirmwareStore.emitChange();
+      break;
+
+    case ActionTypes.FETCH_JAILBREAK_FIRMWARES:
+      loadJailbreakFirmwareData(action.data);
       break;
 
     default:

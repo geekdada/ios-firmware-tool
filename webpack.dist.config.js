@@ -19,7 +19,7 @@ module.exports = {
 
   debug: false,
   devtool: false,
-  entry: './src/components/main.js',
+  entry: './src/scripts/components/main.js',
 
   stats: {
     colors: true,
@@ -36,11 +36,12 @@ module.exports = {
   resolve: {
     extensions: ['', '.js'],
     alias: {
+      'bower_components': __dirname + '/bower_components/',
       'styles': __dirname + '/src/styles',
-      'mixins': __dirname + '/src/mixins',
-      'components': __dirname + '/src/components/',
-      'stores': __dirname + '/src/stores/',
-      'actions': __dirname + '/src/actions/'
+      'scripts': __dirname + '/src/scripts/',
+      'components': __dirname + '/src/scripts/components/',
+      'stores': __dirname + '/src/scripts/stores/',
+      'actions': __dirname + '/src/scripts/actions/'
     }
   },
 

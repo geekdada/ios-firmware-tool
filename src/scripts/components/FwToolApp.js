@@ -1,17 +1,17 @@
 'use strict';
 
-var React = require('react/addons'),
-    ReactTransitionGroup = React.addons.TransitionGroup,
-    _ = require('lodash'),
-    AMR = require('amazeui-react'),
-    {Selected, Table, Grid, Col} = AMR,
+var React = require('react');
+var ReactTransitionGroup = require('react-addons-transition-group');
+var _ = require('lodash');
+var AMR = require('amazeui-react');
+var {Selected, Table, Grid, Col} = AMR;
 
-    DeviceStore = require('../stores/DeviceStore'),
-    FirmwareStore = require('../stores/FirmwareStore'),
-    ServerActions = require('../actions/ServerActionCreators'),
-    helper = require('../scripts/utils'),
+var DeviceStore = require('stores/DeviceStore');
+var FirmwareStore = require('stores/FirmwareStore');
+var ServerActions = require('actions/ServerActionCreators');
+var helper = require('../utils');
 
-    FirmwareInfo = require('./FirmwareInfo');
+var FirmwareInfo = require('./FirmwareInfo');
 
 (function init() {
   ServerActions.loadAllDevices();
@@ -82,14 +82,12 @@ var FwToolApp = React.createClass({
           label: '请先选择你的机型...'
         }];
       } else if (_.has(deviceFirmwares, 'firmwares') && deviceFirmwares.firmwares.length > 0) {
-        let options = deviceFirmwares.firmwares.map(function(firmware) {
+        return deviceFirmwares.firmwares.map(function(firmware) {
           return {
             value: firmware.buildid,
             label: firmware.version + ' - ' + firmware.buildid
           };
         });
-
-        return options;
       } else {
         return [{
           value: null,
@@ -118,7 +116,8 @@ var FwToolApp = React.createClass({
       multiple: false,
       searchBox: true,
       maxHeight: 300,
-      btnStyle: 'secondary'
+      btnStyle: 'secondary',
+      delimiter: '|'
     };
 
     let firmwareSelectorOptions = {
@@ -130,11 +129,12 @@ var FwToolApp = React.createClass({
       multiple: false,
       searchBox: true,
       maxHeight: 300,
-      btnStyle: 'secondary'
+      btnStyle: 'secondary',
+      delimiter: '|'
     };
 
     return (
-      <div className='main'>
+      <div className='main FwToolApp'>
         <Grid className='panels'>
           <Col className='panel left-panel' sm={12} md={6} lg={3}>
             <div className='section form'>
@@ -149,8 +149,8 @@ var FwToolApp = React.createClass({
               <h3 className='section__title'>最新版 iTunes 下载</h3>
               <Table compact>
                 <thead>
-                  <th>平台</th>
-                  <th>地址</th>
+                  <tr>平台</tr>
+                  <tr>地址</tr>
                 </thead>
                 <tbody>
                   <tr>

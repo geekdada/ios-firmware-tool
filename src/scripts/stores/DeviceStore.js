@@ -1,13 +1,13 @@
 'use strict';
 
-var EventEmitter = require('events').EventEmitter,
-    _ = require('lodash'),
+var EventEmitter = require('events').EventEmitter;
+var _ = require('lodash');
 
-    AppDispatcher = require('../dispatcher/AppDispatcher'),
-    AppConstants = require('../constants/AppConstants'),
+var AppDispatcher = require('../dispatcher/AppDispatcher');
+var AppConstants = require('../constants/AppConstants');
 
-    ActionTypes = AppConstants.ActionTypes,
-    CHANGE_EVENT = 'change';
+var ActionTypes = AppConstants.ActionTypes;
+var CHANGE_EVENT = 'change';
 
 var _devices = {};
 
@@ -25,13 +25,9 @@ var DeviceStore = _.extend({}, EventEmitter.prototype, {
     this.removeListener(CHANGE_EVENT, callback);
   },
 
-  getDeviceName: function(deviceId) {
-    return _devices[deviceId];
-  },
+  getDeviceName: (deviceId) => _devices[deviceId],
 
-  getAllDevices: function() {
-    return _devices;
-  }
+  getAllDevices: () => _devices
 
 });
 
@@ -43,7 +39,7 @@ function loadDeviceData(data) {
 DeviceStore.dispatchToken = AppDispatcher.register(function(payload) {
   let action = payload.action;
 
-  switch(action.actionType) {
+  switch (action.actionType) {
     case ActionTypes.LOAD_ALL_DEVICES:
       loadDeviceData(action.data);
       DeviceStore.emitChange();

@@ -12,6 +12,10 @@ methods = {
     } else {
       throw new Error('no_deviceId_given');
     }
+  },
+
+  getJailbreakFirmwares: function() {
+    return axios.get('https://canijailbreak.com/jailbreaks.json');
   }
 
 };

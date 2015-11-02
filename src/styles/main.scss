@@ -32,6 +32,10 @@ html, body {
   }
 }
 
+.panels {
+  margin-bottom: 4rem;
+}
+
 .panel {
   padding: 3rem;
   height: 100%;
@@ -42,6 +46,12 @@ html, body {
 
   .form__row {
     margin-bottom: 2rem;
+  }
+}
+
+.FwToolApp {
+  .am-selected-list {
+    -webkit-overflow-scrolling: touch;
   }
 }
 

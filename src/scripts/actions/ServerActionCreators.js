@@ -37,6 +37,19 @@ var ServerActions = {
         console.error(err);
       });
     });
+  },
+
+  loadAllJailbreakFirmwares: function() {
+    FirmwareApi.getJailbreakFirmwares().then(function(response) {
+      let data = response.data;
+
+      AppDispatcher.handleAction({
+        actionType: ActionTypes.FETCH_JAILBREAK_FIRMWARES,
+        data: data
+      }).catch(function(err) {
+        console.error(err);
+      });
+    });
   }
 
 };
